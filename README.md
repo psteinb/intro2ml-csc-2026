@@ -1,6 +1,6 @@
-# intro2ml-csc-2025
+# intro2ml-csc-2026
 
-exercises on ML/AI for the CERN School of Computing 2025 edition
+exercises on ML/AI for the CERN School of Computing 2026 edition (adopted from [2025 version](https://github.com/francesco-vaselli/intro2ml-csc-2025) by Francesco Vaselli)
 
 The 4 exercises hours are structured into 3 sets. Each set can provide a exercises sheet on basic concepts and/or a notebook on applications. 
 
