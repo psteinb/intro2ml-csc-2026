@@ -1,0 +1,3 @@
+scikit-learn==1.9
+torch==2.13
+matplotlib==3.11
