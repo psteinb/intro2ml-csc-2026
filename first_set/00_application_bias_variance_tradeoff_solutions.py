@@ -179,7 +179,7 @@ def _(f, generate_data, n_repeat, n_test, n_train, noise, np, plt):
             X, y = generate_data(n_train, noise)
             X_train_sets.append(X)
             y_train_sets.append(y)
-        
+    
 
         # Loop over estimators to compare
         for n, (name, estimator) in enumerate(estimators):
@@ -235,7 +235,7 @@ def _(f, generate_data, n_repeat, n_test, n_train, noise, np, plt):
             ax2.plot(X_test, np.full(X_test.shape, noise_sq), "c", label="$noise^2$")
             ax2.set_title("Error Decomposition")
             ax2.legend()
-        
+    
         plt.tight_layout()
         plt.show()
 
@@ -263,17 +263,18 @@ def _(BaggingRegressor, DecisionTreeRegressor):
     # Follow the hints to create the three required models.
 
     # A very simple tree with a small max_depth will be rigid and have high bias.
-    high_bias_model = DecisionTreeRegressor(max_depth=1) # YOUR CODE HERE
+    high_bias_model = DecisionTreeRegressor(max_depth=1)
 
     # A very complex tree with no depth limit will fit the noise and have high variance.
-    high_variance_model = DecisionTreeRegressor(max_depth=10) # YOUR CODE HERE
+    high_variance_model = DecisionTreeRegressor(max_depth=10)
 
     # Bagging (Bootstrap Aggregating) averages many high-variance models to reduce variance.
     # We will use the high-variance tree as the base estimator.
-    low_variance_model = BaggingRegressor(estimator=high_variance_model, n_estimators=10, random_state=42) # YOUR CODE HERE
+    low_variance_model = BaggingRegressor(
+        estimator=high_variance_model, n_estimators=10, random_state=42
+    )
 
     # This list will be passed to our analysis function.
-    # The `None` values are placeholders for you to fill.
     estimators = [
         ("High Bias (Shallow Tree)", high_bias_model),
         ("High Variance (Deep Tree)", high_variance_model),
@@ -299,18 +300,19 @@ def _(
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    ### Exercise 3: Interpretation
-
-    *Double-click this cell and answer the following questions based on the plots and numbers from the cell above.*
+    ### Exercise 3: Interpretation - Solution
 
     **1. Compare the `Bias²` and `Variance` for your "High Bias" and "High Variance" models. Did the results match what you expected? Explain why, referring to the `max_depth` parameter.**
-       > [Your Answer Here]
+
+    > The shallow tree has high bias because `max_depth=1` cannot represent the curved target function. Its predictions tend to be stable across training sets, so its variance is low. The deeper tree can fit much more of the target function and has lower bias, but its predictions change more when the noisy training sample changes, giving it higher variance.
 
     **2. Look at the "prediction beam" (the light green lines) for the "High Variance" model versus the "Bagged" model. Describe the difference you see.**
-       > [Your Answer Here]
+
+    > The deep-tree prediction beam is wider and more irregular: individual trees react strongly to their particular noisy training samples. The bagged prediction beam is narrower and smoother because each prediction averages multiple trees.
 
     **3. What was the effect of Bagging on the Bias? What was its effect on the Variance? What does this tell you about the primary strength of Bagging?**
-       > [Your Answer Here]
+
+    > Bagging primarily reduces variance. Its bias is usually similar to that of the individual base trees, although it can change slightly for a finite sample. Its strength is therefore making flexible, unstable learners more robust without imposing the strong restrictions of a shallow tree.
     """)
     return
 
@@ -341,7 +343,7 @@ def _(X_test, X_train_sample, nn, plt, torch, y_test_true, y_train_sample):
         X_train_torch = torch.from_numpy(X_train_sample).float().to(device)
         y_train_torch = torch.from_numpy(y_train_sample).float().reshape(-1, 1).to(device)
         X_test_torch = torch.from_numpy(X_test).float().to(device)
-    
+
         # Simple training loop
         optimizer = torch.optim.Adam(model.parameters(), lr=0.01)
         loss_fn = nn.MSELoss()
@@ -351,12 +353,12 @@ def _(X_test, X_train_sample, nn, plt, torch, y_test_true, y_train_sample):
             optimizer.zero_grad()
             loss.backward()
             optimizer.step()
-        
+    
         # Plotting
         model.eval()
         with torch.no_grad():
             y_pred_test = model(X_test_torch).cpu().numpy()
-    
+
         plt.plot(X_test, y_test_true, 'b-', label="True Function f(x)")
         plt.scatter(X_train_sample, y_train_sample, c='r', s=20, marker='.', label="Noisy Training Data")
         plt.plot(X_test, y_pred_test, 'g-', lw=2, label="NN Prediction")
@@ -382,7 +384,7 @@ def _(nn):
         nn.Linear(input_dim, 8),
         nn.ReLU(),
         nn.Linear(8, output_dim)
-    ) # YOUR CODE HERE: A simple architecture
+    )
 
     # A model with many neurons and layers has high capacity to memorize noise.
     high_complexity_nn = nn.Sequential(
@@ -391,7 +393,7 @@ def _(nn):
         nn.Linear(128, 128),
         nn.ReLU(),
         nn.Linear(128, output_dim)
-    ) # YOUR CODE HERE: A more complex architecture
+    )
     return high_complexity_nn, low_complexity_nn
 
 
@@ -408,18 +410,19 @@ def _(high_complexity_nn, low_complexity_nn, train_and_plot_nn):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    ### Exercise 5: Final Interpretation
-
-    *Double-click this cell and answer the following questions based on the two NN plots above.*
+    ### Exercise 5: Final Interpretation - Solution
 
     **1. Which of your two neural networks fits the noisy red training data points more closely? What does this suggest about its variance?**
-       > [Your Answer Here]
+
+    The high-complexity network usually fits the noisy training points more closely. This flexibility makes its fitted function more sensitive to which noisy observations appeared in the training set, which is the hallmark of higher variance.
 
     **2. Which network provides a smoother, more generalized fit? What does this suggest about its bias?**
-       > [Your Answer Here]
+
+    The low-complexity network usually gives a smoother, more general fit. Its limited capacity prevents it from fitting all local variation, which corresponds to higher bias.
 
     **3. The high-complexity network shows "wiggles" in areas where there is no data. What real-world problem does this behavior represent, and why is it dangerous for a machine learning model?**
-       > [Your Answer Here]
+
+    The wiggles are overfitting: the model has learned noise or accidental details rather than the underlying relationship. This is dangerous because predictions can be poor and unstable for unseen inputs, especially in regions unlike the training data.
     """)
     return
 
@@ -443,4 +446,3 @@ def _(mo):
 
 if __name__ == "__main__":
     app.run()
-
