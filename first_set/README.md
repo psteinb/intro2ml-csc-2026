@@ -4,11 +4,11 @@
 
 `00_application_bias_variance_tradeoff_exercise.<suffix>`
 
-This folder starts out by introducing the bias/variance tradeoff that we often find, when dealing with machine learning models. This is demonstrated using decision trees. The concept however can be mapped to neural networks too.
+This folder starts out by introducing the bias/variance tradeoff that we often find, when dealing with machine learning models. This is demonstrated using decision trees. The concept however can be mapped to neural networks too. Solution: `00_application_bias_variance_tradeoff_solutions.<suffix>`
 
 `01_core_concepts_neuron_by_hand.<suffix>`
 
-This exercise helps you make the first steps with torch. The notebook takes you through composing your first neural network using Linear layers and the like.
+This exercise helps you make the first steps with torch. The notebook takes you through composing your first neural network using Linear layers and the like. Solution: `01_core_concepts_solutions.<suffix>`
 
 ## Installation
 
