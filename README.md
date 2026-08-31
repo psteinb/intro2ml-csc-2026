@@ -32,3 +32,18 @@ Authenticate with your csc26 account.
 
 ![](instruction_images/csc26-swan05-repo-downloaded_small.png)
 
+## Curriculum
+
+- Mon, Aug 31
+    - Lecture 1, 11:30am -> Course1
+    - Lecture 2, 12:30pm -> Course2 
+- Tue, Sep 01
+    - Exercise 1, 12:30pm -> Intro DecisionTrees (Peanuts and Higgs Search) in [exercise01](exercise01/)
+    - Exercise 2, 15:30pm -> Bias Variance Tradeoff in [exercise02](exercise02/)
+- Wed, Sep 02
+    - Lecture 3, 8:45am -> Course3, NNs+backprop 
+    - Exercise 3, 9:45am -> MLPs in pytorch (backprop by hand, train an MLP) [exercise03](exercise03/)
+    - Lecture 4, 2:30pm -> Course3
+    - Exercise 4, 4:00pm -> CNNs [exercise04](exercise04/)
+- Thu, Sep 03
+    - Lecture 5, 2:30pm -> VAEs
