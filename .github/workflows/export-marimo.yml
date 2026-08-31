@@ -1,0 +1,61 @@
+name: Export Marimo Notebooks
+
+on:
+  push:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: export-marimo-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  export:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the pushed revision
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install the exporter
+        run: python -m pip install "marimo==0.23.16" nbformat
+
+      - name: Export tracked marimo notebooks
+        shell: bash
+        run: |
+          set -euo pipefail
+          mapfile -t notebooks < <(git grep -l -E '^[[:space:]]*import marimo([[:space:]]|$)' -- '*.py' || true)
+
+          if [ "${#notebooks[@]}" -eq 0 ]; then
+            printf '%s\n' "No marimo notebooks found."
+            exit 0
+          fi
+
+          for notebook in "${notebooks[@]}"; do
+            output="${notebook%.py}.ipynb"
+            marimo export ipynb "${notebook}" --output "${output}" --force --sort topological
+          done
+
+      - name: Commit regenerated notebooks
+        shell: bash
+        env:
+          BRANCH: ${{ github.ref_name }}
+        run: |
+          set -euo pipefail
+          git add -- '*.ipynb'
+
+          if git diff --cached --quiet -- '*.ipynb'; then
+            printf '%s\n' "Jupyter notebooks are already up to date."
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "chore: export marimo notebooks"
+          git push origin "HEAD:${BRANCH}"

@@ -47,9 +47,7 @@ The cost function (or loss function) measures how wrong the model's predictions 
 
 The formula for MSE is:
 
-```math
-L(W, b) = \frac{1}{m} \sum_{i=1}^{m} (y^{(i)} - \hat{y}^{(i)})^2 
-```
+$$ L(W, b) = \frac{1}{m} \sum_{i=1}^{m} (y^{(i)} - \hat{y}^{(i)})^2 $$
 
 Where:
 - $m$ is the number of training examples.
@@ -84,21 +82,16 @@ Let's derive this for a single weight, $w_j$. We'll use the chain rule.
 
 **Recall the components:**
 -  **Cost Function (L):**
-```math
-L = \frac{1}{N} \sum_i (y_i - \hat{y}_i)^2
-```
+$$ L = \frac{1}{N} \sum_i (y_i - \hat{y}_i)^2 $$
+
 -  **Prediction ($\hat{y}$):** This is the output of our neuron, which is the activation of `z`.
-```math
-\hat{y} = \sigma(z)
-```
+$$ \hat{y} = \sigma(z) $$
 -  **Activation Function ($\sigma$):** We use the sigmoid function: $\sigma(z) = \frac{1}{1 + e^{-z}}$
 -  **Linear Combination (z):** $z = W^T X + b = w_1x_1 + w_2x_2 + ... + w_nx_n + b$
 
 **The Chain Rule:**
 We want to find $\frac{\partial L}{\partial w_j}$. Using the chain rule, we get:
-```math
- \frac{\partial L}{\partial w_j} = \frac{\partial L}{\partial \hat{y}} \cdot \frac{\partial \hat{y}}{\partial z} \cdot \frac{\partial z}{\partial w_j} 
-```
+$$ \frac{\partial L}{\partial w_j} = \frac{\partial L}{\partial \hat{y}} \cdot \frac{\partial \hat{y}}{\partial z} \cdot \frac{\partial z}{\partial w_j} $$
 
 You can do a similar thing for computing $\frac{\partial L}{\partial b}$, or decide to ignore the bias and leave it to 0 in the following steps.
 
@@ -142,9 +135,7 @@ def initialize_weights(input_dim):
 The sigmoid function squashes its input to a value between 0 and 1. This is useful for binary classification because the output can be interpreted as a probability.
 
 The formula is:
-```math
- \sigma(x) = \frac{1}{1 + e^{-x}} 
-```
+$$ \sigma(x) = \frac{1}{1 + e^{-x}} $$
 
 ```python
 def sigmoid(x):
@@ -166,9 +157,7 @@ def sigmoid(x):
 The forward pass calculates the neuron's output. It's a two-step process:
 1.  **Linear Step:** Compute $z = X \cdot W + b$.
 2.  **Activation Step:** Apply the activation function:
-```math
-\hat{y} = \sigma(z)
-```
+$$ \hat{y} = \sigma(z) $$
 
 ```python
 def forward_pass(X, weights, bias):
@@ -232,12 +221,8 @@ def calculate_gradients(X, y_true, y_pred):
 This is the core of "learning". We take a step in the opposite direction of the gradient to minimize the cost.
 
 The update rules are:
-```math
- W := W - \alpha \cdot dW 
- ```
-```math
- b := b - \alpha \cdot db 
- ```
+$$ W := W - \alpha \cdot dW $$
+$$ b := b - \alpha \cdot db $$
 
 Where $\alpha$ is the **learning rate**, a hyperparameter that controls the step size.
 
