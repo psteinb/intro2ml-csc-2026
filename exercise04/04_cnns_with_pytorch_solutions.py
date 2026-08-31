@@ -75,7 +75,7 @@ def _(train_ds):
 @app.cell
 def _(first_X, first_y):
     print("X",first_X.shape, first_X.dtype)
-    print("y",first_y.shape, first_y.dtype, f"label={first_y.item()}")
+    print("y",first_y, type(first_y))
     return
 
 
@@ -96,7 +96,9 @@ def _(train_ds):
     for p in range(4):
         X,y = train_ds[p]
         ax[p].imshow(X[0,...])
-        ax[p].set_title(f"FashionMNIST label={y.item()}")
+        ax[p].set_title(f"FashionMNIST label={y}")
+
+    fig
     return
 
 
@@ -244,4 +246,3 @@ def _(mo):
 
 if __name__ == "__main__":
     app.run()
-

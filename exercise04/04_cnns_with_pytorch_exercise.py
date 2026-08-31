@@ -66,6 +66,13 @@ def _(test_ds):
 
 
 @app.cell
+def _(test_ds):
+    timg, tlbl = test_ds[0]
+    type(timg), type(tlbl)
+    return
+
+
+@app.cell
 def _(train_ds):
     # inspect the first training image
     first_X, first_y = train_ds[0]
@@ -75,7 +82,7 @@ def _(train_ds):
 @app.cell
 def _(first_X, first_y):
     print("X",first_X.shape, first_X.dtype)
-    print("y",first_y.shape, first_y.dtype, f"label={first_y.item()}")
+    print("y",first_y, type(first_y))
     return
 
 
@@ -96,7 +103,9 @@ def _(train_ds):
     for p in range(4):
         X,y = train_ds[p]
         ax[p].imshow(X[0,...])
-        ax[p].set_title(f"FashionMNIST label={y.item()}")
+        ax[p].set_title(f"FashionMNIST label={y}")
+
+    plt.show()
     return
 
 
@@ -136,7 +145,7 @@ def _(nn):
         def __init__(self):
             super(Net, self).__init__()
             ...
-        
+    
         def forward(self, x):
             ...
 
@@ -157,20 +166,18 @@ def _():
 
     batch_size = 32
     learning_rate = .01
-    return (torch,)
+    return batch_size, torch
 
 
-app._unparsable_cell(
-    r"""
+@app.cell
+def _(batch_size, test_ds, torch, train_ds):
     train_loader = torch.utils.data.DataLoader(train_ds,batch_size=batch_size)
     test_loader = torch.utils.data.DataLoader(test_ds,batch_size=batch_size)
 
     # fill in the blanks!
-    model = 
+    model = ...
     optimizer = torch.optim.Adadelta(...)
-    """,
-    name="_"
-)
+    return model, optimizer, test_loader, train_loader
 
 
 @app.cell
@@ -183,7 +190,7 @@ def _(loss):
 
             #fill in the blanks
             ...
-        
+    
             loss.backward()
             optimizer.step()
             if batch_idx % args.log_interval == 0:
@@ -207,7 +214,7 @@ def _(pred, torch):
                 data, target = data, target
                 # fill in the blanks
                 ...
-            
+        
                 correct += pred.eq(target.view_as(pred)).sum().item()
 
         test_loss /= len(test_loader.dataset)
@@ -257,4 +264,3 @@ def _(mo):
 
 if __name__ == "__main__":
     app.run()
-
