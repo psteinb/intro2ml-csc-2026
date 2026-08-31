@@ -1,6 +1,6 @@
 import marimo
 
-__generated_with = "0.24.0"
+__generated_with = "0.23.16"
 app = marimo.App()
 
 
@@ -23,7 +23,7 @@ def _(mo):
     mo.md(r"""
     # Exercise 2: Finding the Higgs Boson
 
-    This is an fill-in-the-blanks exercise. Go through the notebook and replace all occurances of `...` with the appropriate code.
+    This is an fill-in-the-blanks exercise. Go through the notebook and replace all occurances of `...` with the appropriate code. The comments will guide you what to do. If need be, use the previous notebook to help you.
     """)
     return
 
@@ -31,6 +31,8 @@ def _(mo):
 @app.cell
 def _(subprocess):
     # the following lines will only work on Linux and Mac
+    # if need be, download the zip file by hand and unzip it locally
+
     #! wget "https://github.com/astrocronopio/datasets/raw/main/higgs_dataset.zip"
     subprocess.call(['wget', 'https://github.com/astrocronopio/datasets/raw/main/higgs_dataset.zip'])
     #! unzip -qq -o higgs_dataset.zip
@@ -91,8 +93,10 @@ def _(data, test):
 @app.cell
 def _(data):
     # prepare features X and labels y for the training set `data`
-    # for X use the `data` frame and remove the 'class' column
-    # for y use the `data` frame and remove the 'class' column 
+    # our prediction target will be the column `class` from the `data` table
+
+    # for X: use the `data` frame without the `class` column 
+    # for y: use only the `class` column of the `data` frame
 
     y= data.loc[:, "class"]
     X= data.loc[:, data.columns!='class']
@@ -114,7 +118,7 @@ def _(plt, sns, y):
     value_counts = y.value_counts()
 
     sns.barplot(x = value_counts.index, y = value_counts.values)
-    plt.title('Label counts')
+    plt.title('training set label counts')
     plt.show()
     return
 
@@ -124,7 +128,7 @@ def _(plt, sns, test):
     # check the frequency of labels in the test set
 
     sns.barplot(x = test["class"].value_counts().index, y = test["class"].value_counts().values)
-    plt.title('Label counts')
+    plt.title('test set label counts')
     plt.show()
     return
 
@@ -158,7 +162,6 @@ def _(test_predictions, train_predictions, y_test, y_train):
     from sklearn.metrics import accuracy_score, f1_score
 
     # print the accuracy scores for the train and the test set
-    print("Train data accuracy", accuracy_score(y_train, train_predictions))
     print("Train data accuracy", accuracy_score(y_train, train_predictions))
 
     print("Test data accuracy ", accuracy_score(y_test, test_predictions))
@@ -237,6 +240,40 @@ def _(DecisionTreeClassifier, accuracy_score, x_train, x_val, y_train, y_val):
     return
 
 
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    ## Bonus Exercise
+
+    Swap the training above with a boosted decision tree of a bagging decision tree. What do you see with respect to performance improvements?
+    """)
+    return
+
+
+@app.cell
+def _(accuracy_score, x_test, x_train, y_test, y_train):
+    from sklearn.ensemble import GradientBoostingClassifier 
+
+    # train the classifier
+    btree_classifier = GradientBoostingClassifier()
+    btree_classifier = btree_classifier.fit(X=x_train, y= y_train)
+
+    # produce predictions for the training set and the test set
+    btreetrain_predictions = btree_classifier.predict(x_train)
+    btreetest_predictions = btree_classifier.predict(x_test)
+
+
+    # print the accuracy scores for the train and the test set
+    print("Train data accuracy", accuracy_score(y_train, btreetrain_predictions))
+
+    print("Test data accuracy ", accuracy_score(y_test, btreetest_predictions))
+    return
+
+
+@app.cell
+def _():
+    return
+
+
 if __name__ == "__main__":
     app.run()
-
