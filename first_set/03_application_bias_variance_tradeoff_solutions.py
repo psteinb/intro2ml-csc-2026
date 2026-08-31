@@ -179,7 +179,7 @@ def _(f, generate_data, n_repeat, n_test, n_train, noise, np, plt):
             X, y = generate_data(n_train, noise)
             X_train_sets.append(X)
             y_train_sets.append(y)
-    
+
 
         # Loop over estimators to compare
         for n, (name, estimator) in enumerate(estimators):
@@ -235,7 +235,7 @@ def _(f, generate_data, n_repeat, n_test, n_train, noise, np, plt):
             ax2.plot(X_test, np.full(X_test.shape, noise_sq), "c", label="$noise^2$")
             ax2.set_title("Error Decomposition")
             ax2.legend()
-    
+
         plt.tight_layout()
         plt.show()
 
@@ -334,6 +334,8 @@ def _(mo):
 
 @app.cell
 def _(X_test, X_train_sample, nn, plt, torch, y_test_true, y_train_sample):
+    from sklearn.metrics import mean_squared_error
+
     # Helper function to train and plot a PyTorch NN model
     def train_and_plot_nn(model, name):
         """Trains a PyTorch model and plots its predictions."""
@@ -353,12 +355,14 @@ def _(X_test, X_train_sample, nn, plt, torch, y_test_true, y_train_sample):
             optimizer.zero_grad()
             loss.backward()
             optimizer.step()
-    
+
         # Plotting
         model.eval()
         with torch.no_grad():
             y_pred_test = model(X_test_torch).cpu().numpy()
 
+        mse_test = mean_squared_error(y_test_true,y_pred_test)
+        print(f"mean squared error MSE(pred, true): {mse_test}")
         plt.plot(X_test, y_test_true, 'b-', label="True Function f(x)")
         plt.scatter(X_train_sample, y_train_sample, c='r', s=20, marker='.', label="Noisy Training Data")
         plt.plot(X_test, y_pred_test, 'g-', lw=2, label="NN Prediction")
