@@ -127,16 +127,14 @@ def _():
     return
 
 
-app._unparsable_cell(
-    r"""
+@app.cell
+def _():
     # use the train_test_split function to create a 80-20 split of `data`
-    x_train, x_val, y_train, y_val = ...
+    x_train, x_val, y_train, y_val = ..., ..., ..., ...
 
     # create the test set by dropping the "class" column from `test`
-    x_test, y_test =
-    """,
-    name="_"
-)
+    x_test, y_test = ..., ...
+    return x_test, x_train, x_val, y_test, y_train, y_val
 
 
 @app.cell

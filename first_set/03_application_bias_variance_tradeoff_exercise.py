@@ -244,22 +244,22 @@ def _(mo):
     return
 
 
-app._unparsable_cell(
-    r"""
+@app.cell
+def _():
     ### EXERCISE 2: Define your models ###
 
     # Your task is to define a list of tuples, where each tuple is (name, model).
     # Follow the hints to create the three required models.
 
     # A very simple tree with a small max_depth will be rigid and have high bias.
-    high_bias_model = # YOUR CODE HERE
+    high_bias_model = ...  # YOUR CODE HERE
 
     # A very complex tree with no depth limit will fit the noise and have high variance.
-    high_variance_model =  # YOUR CODE HERE
+    high_variance_model = ...  # YOUR CODE HERE
 
     # Bagging (Bootstrap Aggregating) averages many high-variance models to reduce variance.
     # We will use the high-variance tree as the base estimator.
-    low_variance_model = # YOUR CODE HERE
+    low_variance_model = ...  # YOUR CODE HERE
 
     # This list will be passed to our analysis function.
     # The `None` values are placeholders for you to fill.
@@ -268,9 +268,7 @@ app._unparsable_cell(
         ("High Variance (Deep Tree)", high_variance_model),
         ("Low Variance (Bagged Trees)", low_variance_model),
     ]
-    """,
-    name="_"
-)
+    return estimators, high_bias_model, high_variance_model, low_variance_model
 
 
 @app.cell
@@ -358,8 +356,8 @@ def _(X_test, X_train_sample, nn, plt, torch, y_test_true, y_train_sample):
     return (train_and_plot_nn,)
 
 
-app._unparsable_cell(
-    r"""
+@app.cell
+def _():
     ### EXERCISE 4: Define your NN models ###
 
     # Your task is to define two simple neural networks using torch.nn.Sequential.
@@ -369,13 +367,11 @@ app._unparsable_cell(
     output_dim = 1
 
     # A model with few neurons and layers lacks capacity.
-    low_complexity_nn = # YOUR CODE HERE: A simple architecture
+    low_complexity_nn = ...  # YOUR CODE HERE: A simple architecture
 
     # A model with many neurons and layers has high capacity to memorize noise.
-    high_complexity_nn = # YOUR CODE HERE: A more complex architecture
-    """,
-    name="_"
-)
+    high_complexity_nn = ...  # YOUR CODE HERE: A more complex architecture
+    return high_complexity_nn, input_dim, low_complexity_nn, output_dim
 
 
 @app.cell
@@ -426,4 +422,3 @@ def _(mo):
 
 if __name__ == "__main__":
     app.run()
-
