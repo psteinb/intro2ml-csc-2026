@@ -1,6 +1,6 @@
 import marimo
 
-__generated_with = "0.24.0"
+__generated_with = "0.23.16"
 app = marimo.App()
 
 
@@ -14,9 +14,19 @@ def _():
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    ## Exercise 1: Diving into Classification
+    ## Exercise 1: Diving into Classification with decision trees
 
-    In this notebook, we want to dive into a practical application for machine learning. For this we rely on the `scikit-learn` (`sklearn` for short) library as well as pandas for data handling. The onset is very simple. You are invested for a party and promise to help with the preparations. As you are decorating the buffet with snacks, you mix a bowl of peanuts, walnuts and other chocolate covered candy. Once you are done, the hosts inform you that they expecting guests which are allergic to peanuts. You are now tasked to filter out the peanuts from the bowl of snacks. The dataset, `peanuts.csv` below presents the measurements taken on the bowl of dried snacks. Let's use classification to automate the task.
+    In this notebook, we want to dive into a practical application for machine learning. For this we rely on the `scikit-learn` (`sklearn` for short) library as well as pandas for data handling.
+
+    ## Problem setting
+
+    You are invited for a party and promise to help with the preparations. You are decorating the buffet with snacks: you mix a bowl of peanuts, walnuts and other chocolate covered candy.
+
+    Once you are done, the hosts inform you that they are expecting guests which are allergic to peanuts. You are now tasked to filter out the peanuts from the bowl of snacks and remove them.
+
+    ## Data science context
+
+    The dataset, `peanuts.csv` below presents the measurements taken on the bowl of dried and chocolate snacks. For the sake of the exercise, use classification to automate the task of filtering the candy bowl.
     """)
     return
 
@@ -132,6 +142,8 @@ def _(classifier_tree, plot_tree, plt):
 def _(mo):
     mo.md(r"""
     ## Calculate the Performance Metric
+
+    We choose [accuracy](https://en.wikipedia.org/wiki/Accuracy_and_precision) as the performance metric of choice.
     """)
     return
 
@@ -145,6 +157,10 @@ def _(X_test, classifier_tree, np, y_test):
     return
 
 
+@app.cell
+def _():
+    return
+
+
 if __name__ == "__main__":
     app.run()
-
