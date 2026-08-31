@@ -86,15 +86,15 @@ def _(mo):
 
 
 @app.cell
-def _(DecisionTreeClassifier, X, accuracy_score, train_test_split, y):
+def _(X, train_test_split, y):
     split_scores = []
     for seed in (12, 42, 99):
         _x_train, _x_test, _y_train, _y_test = train_test_split(
             X, y, test_size=0.2, random_state=seed
         )
-        _classifier = DecisionTreeClassifier(max_depth=5, random_state=0)
+        _classifier = ...
         _classifier.fit(_x_train, _y_train)
-        test_accuracy = accuracy_score(_y_test, _classifier.predict(_x_test))
+        test_accuracy = ...
         split_scores.append(test_accuracy)
         print(f"Seed {seed}: test accuracy = {test_accuracy:.3f}, first 5 labels {_y_train[:5]}")
     return
@@ -127,21 +127,20 @@ def _(KFold):
 
 
 @app.cell
-def _(DecisionTreeClassifier, X, accuracy_score, regular_cv, y):
+def _(X, accuracy_score, regular_cv, y):
     regular_scores = []
     for _fold, (_train_indices, _validation_indices) in enumerate(
         regular_cv.split(X), start=1
     ):
-        _x_train = X.iloc[_train_indices]
-        _x_validation = X.iloc[_validation_indices]
-        _y_train = y.iloc[_train_indices]
-        _y_validation = y.iloc[_validation_indices]
+        _x_train = X.iloc[...]
+        _x_validation = X.iloc[...]
+        _y_train = y.iloc[...]
+        _y_validation = y.iloc[...]
 
         if _fold <= 3:
-            print(f"Regular fold {_fold} validation label counts:")
-            print(_y_validation.value_counts().sort_index())
+            ...
 
-        _classifier = DecisionTreeClassifier(max_depth=5, random_state=0)
+        _classifier = ...
         _classifier.fit(_x_train, _y_train)
         regular_scores.append(
             accuracy_score(_y_validation, _classifier.predict(_x_validation))
@@ -187,25 +186,25 @@ def _(mo):
 @app.cell
 def _(StratifiedKFold):
     stratified_cv = StratifiedKFold(n_splits=15, shuffle=True, random_state=42)
-    return (stratified_cv,)
+    return
 
 
 @app.cell
-def _(DecisionTreeClassifier, X, accuracy_score, stratified_cv, y):
+def _(accuracy_score):
     stratified_scores = []
     for _fold, (_train_indices, _validation_indices) in enumerate(
-        stratified_cv.split(X, y), start=1
+        ..., start=1
     ):
-        _x_train = X.iloc[_train_indices]
-        _x_validation = X.iloc[_validation_indices]
-        _y_train = y.iloc[_train_indices]
-        _y_validation = y.iloc[_validation_indices]
+        _x_train = ...
+        _x_validation = ...
+        _y_train = ...
+        _y_validation = ...
 
         if _fold <= 3:
             print(f"Stratified fold {_fold} validation label counts:")
-            print(_y_validation.value_counts().sort_index())
+            print(...)
 
-        _classifier = DecisionTreeClassifier(max_depth=5, random_state=0)
+        _classifier = ...
         _classifier.fit(_x_train, _y_train)
         stratified_scores.append(
             accuracy_score(_y_validation, _classifier.predict(_x_validation))
@@ -282,17 +281,11 @@ def _(
 
 
 @app.cell
-def _(X, classifiers, cross_validate, pd, stratified_cv, y):
+def _(classifiers, cross_validate, pd):
     classifier_scores = {}
     for name, _classifier in classifiers.items():
         result = cross_validate(
-            _classifier,
-            X,
-            y,
-            cv=stratified_cv,
-            scoring="accuracy",
-            n_jobs=-1,
-            return_train_score=False,
+            ...
         )
         classifier_scores[name] = result["test_score"]
 
