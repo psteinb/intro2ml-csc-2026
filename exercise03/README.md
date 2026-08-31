@@ -2,9 +2,9 @@
 
 ## Content
 
-`02_application_bias_variance_tradeoff_exercise.<suffix>`
+`03_core_concepts_neuron_by_hand_exercise.<suffix>`
 
-This notebook starts out by introducing the bias/variance tradeoff that we often find, when dealing with machine learning models. This is demonstrated using decision trees. The concept however can be mapped to neural networks too. Solution: `02_application_bias_variance_tradeoff_solutions.<suffix>`
+This notebook will introduce you to backpropagation and gradient descent. Feel free to perform most of this notebook with pen and paper. It's better this way. Return to the notebook later in order to explore first steps with pytorch. Solution: `03_core_concepts_neuron_by_hand_solution.<suffix>`
 
 ## Installation
 
