@@ -1,6 +1,6 @@
 import marimo
 
-__generated_with = "0.24.0"
+__generated_with = "0.23.16"
 app = marimo.App()
 
 
@@ -23,7 +23,7 @@ def _(mo):
     mo.md(r"""
     # Exercise 2: Finding the Higgs Boson
 
-    This is an fill-in-the-blanks exercise. Go through the notebook and replace all occurances of `...` with the appropriate code.
+    This is an fill-in-the-blanks exercise. Go through the notebook and replace all occurances of `...` with the appropriate code. The comments will guide you what to do. If need be, use the previous notebook to help you.
     """)
     return
 
@@ -90,8 +90,10 @@ def _(data, test):
 @app.cell
 def _():
     # prepare features X and labels y for the training set `data`
-    # for X use the `data` frame and remove the 'class' column
-    # for y use the `data` frame and remove the 'class' column 
+    # our prediction target will be the column `class` from the `data` table
+
+    # for X: use the `data` frame without the `class` column 
+    # for y: use only the `class` column of the `data` frame
 
     ...
     return
@@ -187,22 +189,6 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    When the data is imbalanced, meaning the number of observations is different for the different classes
-    """)
-    return
-
-
-@app.cell(hide_code=True)
-def _(mo):
-    mo.md(r"""
-    Because the model has learned all of it. Notice that because the model hasn't seen the test data, it's accuracy is lower
-    """)
-    return
-
-
-@app.cell(hide_code=True)
-def _(mo):
-    mo.md(r"""
     # Pruning
 
     We saw that test accuracy reaches 64%. But we would like to go higher. Take the `ccp_alpha` parameter of the decision tree object and increase it by 1e-5 until you reach an accuracy of 68.5%!
@@ -219,6 +205,27 @@ def _():
       ...
 
     print(f"Optimized ccp_alpha: {ccp_alpha}")
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    ## Bonus Exercise
+
+    Swap the training above with a boosted decision tree of a bagging decision tree. What do you see with respect to performance improvements?
+    """)
+    return
+
+
+@app.cell
+def _():
+    ...
+    return
+
+
+@app.cell
+def _():
     return
 
 

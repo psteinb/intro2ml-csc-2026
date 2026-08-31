@@ -192,7 +192,11 @@ def _(mo):
 
     - In what cases is the accuracy score not a good measure of our data?
 
+    > When the data is imbalanced, meaning the number of observations is different for the different classes
+
     - Why is the accuracy for train 100%?
+
+    > Because the model has learned all of it. Notice that because the model hasn't seen the test data, it's accuracy is lower
     """)
     return
 
@@ -200,7 +204,7 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    When the data is imbalanced, meaning the number of observations is different for the different classes
+ 
     """)
     return
 
@@ -208,7 +212,7 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    Because the model has learned all of it. Notice that because the model hasn't seen the test data, it's accuracy is lower
+ 
     """)
     return
 
