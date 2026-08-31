@@ -1,4 +1,5 @@
 scikit-learn==1.9
 torch==2.13
+torchvision==0.28.0
 matplotlib==3.11
 seaborn==0.13.2
