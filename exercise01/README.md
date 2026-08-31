@@ -10,6 +10,10 @@ An exercise to get your fingers warm. This is also a check that your setup is co
 
 This folder starts out by introducing the bias/variance tradeoff that we often find, when dealing with machine learning models. This is demonstrated using decision trees. The concept however can be mapped to neural networks too. Solution: `00_application_bias_variance_tradeoff_solutions.<suffix>`
 
+`b1_classifier_crossval_exercise.py`
+
+Bonus exercise following the Higgs search exercise. It compares decision-tree, random-forest, and gradient-boosting classifiers with repeated stratified cross-validation, emphasizing that measured performance varies with the data split. Solution: `b1_classifier_crossval_solution.py`.
+
 
 ## Installation
 
@@ -28,4 +32,3 @@ source .venv/bin/activate
 uv pip install jupyterlab 
 #uv pip install marimo #if you like this environment better
 ```
-
