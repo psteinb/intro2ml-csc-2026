@@ -8,17 +8,42 @@ Our suggestion is to try and solve the exercise sheet in you preferred language 
 
 The notebook for the third set is compute intensive so we can rely on CERN infrastructure for GPUs. You are also free to use the CERN infrastructure for any other exercise before should your local machine not be enough, GPUs have been reserved for us.
 
-## Setting up a notebook on ml.cern.ch (PLEASE NO MORE THAT 1 PERSON PER PAIR)
+## Set up with SWAN
 
-1. Visit `ml.cern.ch`, login with your CERN account.
-2. Select the namespace `csc` from the top left ![step1](/instruction_images/step1.png)
-3. Click on `New Notebook` from the quick shortcuts
-4. In `Custom Notebook`, select the `kubeflow/kubeflownotebookswg/jupyter-pytorch-cuda-full:v1.9.2` image, to get a pytorch ready image ![step2](/instruction_images/step2.png)
-5. When creating a notebook, selecting `CSC - NVIDIA GPU 5GB` as the flavour. For memory and cpu, don't exceed 2 CPUs/10GB memory per notebook. ![step3](/instruction_images/step3.png)
-6. In `Advanced Options` -> `Configurations`, deselect `Set EOS as home directory` and `Inject The Oauth2Token` ![step4](/instruction_images/step4.png)
+### Enter [SWAN](https://swan.cern.ch)
 
-Then you should be able to start the notebook. The machine may take a while before the notebook server is ready to be lunched. 
+![](instruction_images/csc26-swan01-stack109-cu125_small.png)
 
-Once you have the notebook you should be able to simply open a terminal session there and `git clone` this repository to run the exercises.
+Authenticate with your csc26 account.
 
-*Important*: no persistency guaranteed between one session and the other so make sure you save locally something if you'd like to keep it for future reference!
+### Download the git repository [github.com/psteinb/intro2ml-csc-2026](https://github.com/psteinb/intro2ml-csc-2026)
+
+![](instruction_images/csc26-swan02-clonerepo_small.png)
+
+### Insert Repo URL
+
+![](instruction_images/csc26-swan03-repourl_small.png)
+
+### Confirm Download
+
+![](instruction_images/csc26-swan04-confirm-gitrepo_small.png)
+
+### The code is now downloaded
+
+![](instruction_images/csc26-swan05-repo-downloaded_small.png)
+
+## Curriculum
+
+- Mon, Aug 31
+    - Lecture 1, 11:30am -> Course1
+    - Lecture 2, 12:30pm -> Course2 
+- Tue, Sep 01
+    - Exercise 1, 12:30pm -> Intro DecisionTrees (Peanuts and Higgs Search) in [exercise01](exercise01/)
+    - Exercise 2, 15:30pm -> Bias Variance Tradeoff in [exercise02](exercise02/)
+- Wed, Sep 02
+    - Lecture 3, 8:45am -> Course3, NNs+backprop 
+    - Exercise 3, 9:45am -> MLPs in pytorch (backprop by hand, train an MLP) [exercise03](exercise03/)
+    - Lecture 4, 2:30pm -> Course3
+    - Exercise 4, 4:00pm -> CNNs [exercise04](exercise04/)
+- Thu, Sep 03
+    - Lecture 5, 2:30pm -> VAEs

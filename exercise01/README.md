@@ -2,13 +2,14 @@
 
 ## Content
 
-`00_application_bias_variance_tradeoff_exercise.<suffix>`
+`00_decisiontree_sklearn_mechanics.<suffix>`
+
+An exercise to get your fingers warm. This is also a check that your setup is correct. This offers a lightweight entry into classification with decision trees. Note, the task at hand has nothing to do with physics really. This is a common challenge for data scientists, i.e. to work with data they have not helped to produce.
+
+`01_decisiontree_higgs_search_exercise.<suffix>`
 
 This folder starts out by introducing the bias/variance tradeoff that we often find, when dealing with machine learning models. This is demonstrated using decision trees. The concept however can be mapped to neural networks too. Solution: `00_application_bias_variance_tradeoff_solutions.<suffix>`
 
-`01_core_concepts_neuron_by_hand.<suffix>`
-
-This exercise helps you make the first steps with torch. The notebook takes you through composing your first neural network using Linear layers and the like. Solution: `01_core_concepts_solutions.<suffix>`
 
 ## Installation
 

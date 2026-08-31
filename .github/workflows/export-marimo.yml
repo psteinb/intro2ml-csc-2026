@@ -40,6 +40,7 @@ jobs:
           for notebook in "${notebooks[@]}"; do
             output="${notebook%.py}.ipynb"
             marimo export ipynb "${notebook}" --output "${output}" --force --sort topological
+            python .github/scripts/remove_marimo_imports.py "${output}"
           done
 
       - name: Commit regenerated notebooks

@@ -1,0 +1,26 @@
+# Exploring Neural Networks
+
+## Content
+
+`03_core_concepts_neuron_by_hand_exercise.<suffix>`
+
+This notebook will introduce you to backpropagation and gradient descent. Feel free to perform most of this notebook with pen and paper. It's better this way. Return to the notebook later in order to explore first steps with pytorch. Solution: `03_core_concepts_neuron_by_hand_solution.<suffix>`
+
+## Installation
+
+The following material was tested on SWAN using ... in August 2026. If you would like to run the material locally, you can use the `requirements.txt` file to install software dependencies. In order to be more flexible, use the `uv` tool (see [here](https://docs.astral.sh/uv/) for details).
+
+```bash
+uv venv --system-site-packages
+source .venv/bin/activate
+uv pip install -r ./requirements.txt
+```
+
+The instructions above assume that you have a running jupyter lab or marimo infrastructure inplace. If not, install the following in the same environment as you installed requirements!
+
+```bash
+source .venv/bin/activate
+uv pip install jupyterlab 
+#uv pip install marimo #if you like this environment better
+```
+
