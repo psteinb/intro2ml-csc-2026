@@ -8,6 +8,31 @@ Our suggestion is to try and solve the exercise sheet in you preferred language 
 
 The notebook for the third set is compute intensive so we can rely on CERN infrastructure for GPUs. You are also free to use the CERN infrastructure for any other exercise before should your local machine not be enough, GPUs have been reserved for us.
 
+## Set up with SWAN
+
+### Enter [SWAN](https://swan.cern.ch)
+
+![](instruction_images/csc26-swan01-stack109-cu125_small.png)
+
+Authenticate with your csc26 account.
+
+### Download the git repository [github.com/psteinb/intro2ml-csc-2026](https://github.com/psteinb/intro2ml-csc-2026)
+
+![](instruction_images/csc26-swan02-clonerepo_small.png)
+
+### Insert Repo URL
+
+![](instruction_images/csc26-swan03-repourl_small.png)
+
+### Confirm Download
+
+![](instruction_images/csc26-swan04-confirm-gitrepo_small.png)
+
+### The code is now downloaded
+
+![](instruction_images/csc26-swan05-repo-downloaded_small.png)
+
+
 ## Setting up a notebook on ml.cern.ch (PLEASE NO MORE THAT 1 PERSON PER PAIR)
 
 1. Visit `ml.cern.ch`, login with your CERN account.
