@@ -239,10 +239,10 @@ def _(
 ):
     prediction_figure, prediction_axes = plt.subplots(1, 4, figsize=(14, 3))
     for prediction_index, prediction_axis in enumerate(prediction_axes):
-        prediction_axis.plot(display_inputs[prediction_index, 0], label="input")
-        prediction_axis.plot(display_targets[prediction_index, 0], label="target")
-        prediction_axis.plot(display_probabilities[prediction_index, 0], label="probability")
-        prediction_axis.plot(display_predictions[prediction_index, 0], "--", label="prediction")
+        prediction_axis.plot(display_inputs[prediction_index, 0].cpu().numpy(), label="input")
+        prediction_axis.plot(display_targets[prediction_index, 0].cpu().numpy(), label="target")
+        prediction_axis.plot(display_probabilities[prediction_index, 0].cpu().numpy(), label="probability")
+        prediction_axis.plot(display_predictions[prediction_index, 0].cpu().numpy(), "--", label="prediction")
         prediction_axis.set_ylim(-0.05, 1.3)
     prediction_axes[-1].legend()
     prediction_figure
