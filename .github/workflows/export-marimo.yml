@@ -43,6 +43,15 @@ jobs:
             python .github/scripts/remove_marimo_imports.py "${output}"
           done
 
+      - name: Verify exported notebooks do not depend on Marimo
+        shell: bash
+        run: |
+          set -euo pipefail
+          mapfile -t notebooks < <(git ls-files '*.ipynb')
+          if [ "${#notebooks[@]}" -gt 0 ]; then
+            python .github/scripts/remove_marimo_imports.py --check "${notebooks[@]}"
+          fi
+
       - name: Commit regenerated notebooks
         shell: bash
         env:
