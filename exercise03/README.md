@@ -24,3 +24,8 @@ uv pip install jupyterlab
 #uv pip install marimo #if you like this environment better
 ```
 
+## Further Reading
+
+- free textbook with all fundamentals of modern machine learning: https://udlbook.github.io/udlbook/
+- first steps with pytorch: https://sebastianraschka.com/teaching/pytorch-1h/
+
