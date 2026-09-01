@@ -24,3 +24,6 @@ uv pip install jupyterlab
 #uv pip install marimo #if you like this environment better
 ```
 
+## Further Reading
+
+- free textbook with all fundamentals of modern machine learning (convnets have a dedicated chapter): https://udlbook.github.io/udlbook/

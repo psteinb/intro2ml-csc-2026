@@ -28,3 +28,8 @@ uv pip install jupyterlab
 #uv pip install marimo #if you like this environment better
 ```
 
+## Further Reading
+
+- nice tutorial by the `sklearn` developers: https://inria.github.io/scikit-learn-mooc/ (ready for self-study)
+- very good overview paper about implications of stochastic learning: https://arxiv.org/abs/1811.12808 
+- benchmarking AI systems as a scientific discipline: https://www.mlbenchmarks.org/

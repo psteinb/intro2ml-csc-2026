@@ -2,7 +2,7 @@
 
 ## Content
 
-`00_decisiontree_sklearn_mechanics.<suffix>`
+`00_introduction_decisiontree_sklearn_mechanics.<suffix>`
 
 An exercise to get your fingers warm. This is also a check that your setup is correct. This offers a lightweight entry into classification with decision trees. Note, the task at hand has nothing to do with physics really. This is a common challenge for data scientists, i.e. to work with data they have not helped to produce.
 
@@ -28,3 +28,7 @@ source .venv/bin/activate
 uv pip install jupyterlab 
 #uv pip install marimo #if you like this environment better
 ```
+
+## Further Reading
+
+- deep dive into decision trees by a former sklearn dev: https://sebastianraschka.com/blog/2021/ml-course.html#l06---decision-trees
