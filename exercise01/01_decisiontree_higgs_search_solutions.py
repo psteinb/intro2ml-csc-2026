@@ -249,7 +249,7 @@ def _(mo):
     mo.md(r"""
     ## Bonus Exercise
 
-    Swap the training above with a boosted decision tree of a bagging decision tree. What do you see with respect to performance improvements?
+    Swap the training above with a boosted decision tree or a bagging decision tree. What do you see with respect to performance improvements?
     """)
     return
 
