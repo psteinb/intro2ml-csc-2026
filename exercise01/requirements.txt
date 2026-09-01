@@ -1,4 +1,4 @@
 scikit-learn==1.9
-torch==2.13
+pandas==3.0.5
 matplotlib==3.11
 seaborn==0.13.2

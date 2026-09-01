@@ -2,9 +2,9 @@
 
 ## Content
 
-`04_conv_nets_exercise.<suffix>`
+`04_cnns_with_pytorch_exercise.py`
 
-...
+A notebook to dive into a traditional approach to perform classification on images using convolution operation. We use the FashionMNIST dataset to classify images of clothing. This notebook requires you to understand the implications of a convolution on the pixel level and integrate Conv layers into a neural network. Solution: `04_cnns_with_pytorch_solution.py`
 
 ## Installation
 
@@ -24,3 +24,6 @@ uv pip install jupyterlab
 #uv pip install marimo #if you like this environment better
 ```
 
+## Further Reading
+
+- free textbook with all fundamentals of modern machine learning (convnets have a dedicated chapter): https://udlbook.github.io/udlbook/
