@@ -1,12 +1,12 @@
-# intro2ml-csc-2026
+# Introduction to Machine Learning, CSC 2026
 
-exercises on ML/AI for the CERN School of Computing 2026 edition (adopted from [2025 version](https://github.com/francesco-vaselli/intro2ml-csc-2025) by Francesco Vaselli)
+Exercises on ML/AI for the CERN School of Computing 2026 edition (adopted from [2025 version](https://github.com/francesco-vaselli/intro2ml-csc-2025) by Francesco Vaselli).
 
-The 4 exercises hours are structured into 3 sets. Each set can provide a exercises sheet on basic concepts and/or a notebook on applications. 
+The 4 exercise hours are structured into 4 folders available in this repository. Each directory provides exercise notebooks for students to work with. If you are stuck or tried really hard on a problem for 5-10 minutes, feel free to consult the adjoint solution notebooks. Note, running only the solution notebooks will impair your learning experience.
 
-Our suggestion is to try and solve the exercise sheet in you preferred language (pseudocode in Python is provided) and on your local machine. If you are left with more time or you are already familiar with the concepts of the core-concepts part, you can move on to the notebook. 
+Our suggestion is to try and solve the exercise notebooks on CERN compute infrastructure or on your local machine. If you are left with more time or you are already familiar with the concepts of the core-concepts part, you can move on to the next notebook or consider the bonus notebooks. 
 
-The notebook for the third set is compute intensive so we can rely on CERN infrastructure for GPUs. You are also free to use the CERN infrastructure for any other exercise before should your local machine not be enough, GPUs have been reserved for us.
+The notebook for the last folder `exercise04` is compute intensive. Please use CERN's swan infrastructure for GPU access. You are also free to use the CERN infrastructure for any other exercise should your local machine not be enough. **Note, support for local installation issues is limited during exercise sessions.**
 
 ## Set up with SWAN
 
