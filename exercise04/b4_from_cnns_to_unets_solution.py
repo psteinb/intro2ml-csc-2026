@@ -12,7 +12,17 @@ def _():
     from typing import Tuple
 
     torch.manual_seed(41)
-    return Tuple, mo, plt, torch
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    print(f"Using device: {device}")
+    return Tuple, device, mo, plt, torch
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    In this exercise, we fall back to a synthetic dataset for ease of learning. The following cell creates a 1D dataset that exposes bumps. The task for the network will be to 'segment' or 'find' these bumps.
+    """)
+    return
 
 
 @app.cell
@@ -65,6 +75,14 @@ def _(X_train, plt, y_train):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
+    In the cell above, you see our synthetic data in blue. We have overlaid the target mask, i.e. the positions along the signal axis (i.e. x axis) where we identify a positive signal (`y=1`) and no signal (or background only) with `y=0`.
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
     # Bonus: From CNNs to U-Nets
 
     The CNN exercise classified a complete image with one label. Here the task is
@@ -94,6 +112,10 @@ def _(mo):
 
     The model returns raw logits. `BCEWithLogitsLoss` applies the sigmoid needed
     for binary cross-entropy; use `torch.sigmoid` only for visualisation.
+
+    During training, the notebook uses a CUDA GPU when one is available and
+    otherwise uses the CPU. The dataset stays in CPU memory; only the model and
+    the current batch are transferred to the selected device.
     """)
     return
 
@@ -140,9 +162,9 @@ def _(torch):
 
 
 @app.cell
-def _(UNet1d, torch):
-    model = UNet1d()
-    probe = torch.zeros(2, 1, 64)
+def _(UNet1d, device, torch):
+    model = UNet1d().to(device)
+    probe = torch.zeros(2, 1, 64, device=device)
     output = model(probe)
     assert output.shape == (2, 1, 64), output.shape
     return (model,)
@@ -159,7 +181,7 @@ def _(X_test, X_train, torch, y_test, y_train):
 
 
 @app.cell
-def _(model, test_loader, torch, train_loader):
+def _(device, model, test_loader, torch, train_loader):
     optimizer = torch.optim.Adam(model.parameters(), lr=1e-3)
     loss_function = torch.nn.BCEWithLogitsLoss()
     history = {"train_loss": [], "test_loss": []}
@@ -168,6 +190,7 @@ def _(model, test_loader, torch, train_loader):
         model.train()
         train_loss = 0.0
         for inputs, targets in train_loader:
+            inputs, targets = inputs.to(device), targets.to(device)
             optimizer.zero_grad()
             loss = loss_function(model(inputs), targets)
             loss.backward()
@@ -179,27 +202,41 @@ def _(model, test_loader, torch, train_loader):
         test_loss = 0.0
         with torch.no_grad():
             for inputs, targets in test_loader:
+                inputs, targets = inputs.to(device), targets.to(device)
                 test_loss += loss_function(model(inputs), targets).item() * len(inputs)
         history["test_loss"].append(test_loss / len(test_loader.dataset))
 
         print(f"epoch {epoch + 1:02d}: train={history['train_loss'][-1]:.4f}, test={history['test_loss'][-1]:.4f}")
-    return (history,)
+    return
 
 
 @app.cell
-def _(model, test_loader, torch):
+def _(device, model, test_loader, torch):
     display_inputs, display_targets = next(iter(test_loader))
+    display_inputs = display_inputs.to(device)
+    display_targets = display_targets.to(device)
     model.eval()
     with torch.no_grad():
         display_probabilities = torch.sigmoid(model(display_inputs))
     display_predictions = display_probabilities >= 0.5
     position_accuracy = (display_predictions == display_targets.bool()).float().mean()
-    print(f"per-position accuracy: {position_accuracy:.1%}")
-    return display_inputs, display_predictions, display_probabilities, display_targets
+    print(f"per-position accuracy: {position_accuracy.item():.1%}")
+    return (
+        display_inputs,
+        display_predictions,
+        display_probabilities,
+        display_targets,
+    )
 
 
 @app.cell
-def _(display_inputs, display_predictions, display_probabilities, display_targets, plt):
+def _(
+    display_inputs,
+    display_predictions,
+    display_probabilities,
+    display_targets,
+    plt,
+):
     prediction_figure, prediction_axes = plt.subplots(1, 4, figsize=(14, 3))
     for prediction_index, prediction_axis in enumerate(prediction_axes):
         prediction_axis.plot(display_inputs[prediction_index, 0], label="input")

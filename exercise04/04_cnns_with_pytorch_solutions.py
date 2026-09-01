@@ -147,6 +147,10 @@ def _(torch):
 def _(mo):
     mo.md(r"""
     ## Preparing the training loop
+
+    The notebook uses a CUDA GPU when `torch.cuda.is_available()` is true and
+    otherwise runs on the CPU. The model and each data batch must be on the same
+    device. Keep the dataset on the CPU and transfer only the current batch.
     """)
     return
 
@@ -157,25 +161,27 @@ def _():
 
     batch_size = 32
     learning_rate = .01
-    return batch_size, learning_rate, torch
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    print(f"Using device: {device}")
+    return batch_size, device, learning_rate, torch
 
 
 @app.cell
-def _(Net, batch_size, learning_rate, test_ds, torch, train_ds):
+def _(Net, batch_size, device, learning_rate, test_ds, torch, train_ds):
     train_loader = torch.utils.data.DataLoader(train_ds,batch_size=batch_size)
     test_loader = torch.utils.data.DataLoader(test_ds,batch_size=batch_size)
 
-    model = Net()
+    model = Net().to(device)
     optimizer = torch.optim.Adadelta(model.parameters(), lr=learning_rate)
     return model, optimizer, test_loader, train_loader
 
 
 @app.cell
 def _(F):
-    def train(args, model, train_loader, optimizer, epoch):
+    def train(args, model, train_loader, optimizer, epoch, device):
         model.train()
         for batch_idx, (data, target) in enumerate(train_loader):
-            data, target = data, target
+            data, target = data.to(device), target.to(device)
             optimizer.zero_grad()
             output = model(data)
             loss = F.cross_entropy(output, target)
@@ -193,13 +199,13 @@ def _(F):
 
 @app.cell
 def _(F, torch):
-    def test(model, test_loader):
+    def test(model, test_loader, device):
         model.eval()
         test_loss = 0
         correct = 0
         with torch.no_grad():
             for data, target in test_loader:
-                data, target = data, target
+                data, target = data.to(device), target.to(device)
                 output = model(data)
                 test_loss += F.cross_entropy(output, target).item()  # sum up batch loss
                 pred = output.argmax(dim=1, keepdim=True)  # get the index of the max log-probability
@@ -225,10 +231,10 @@ def _():
 
 
 @app.cell
-def _(args, model, optimizer, test, test_loader, train, train_loader):
+def _(args, device, model, optimizer, test, test_loader, train, train_loader):
     for epoch in range(1, args.epochs + 1):
-        train(args, model, train_loader, optimizer, epoch)
-        test(model, test_loader)
+        train(args, model, train_loader, optimizer, epoch, device)
+        test(model, test_loader, device)
     return
 
 
